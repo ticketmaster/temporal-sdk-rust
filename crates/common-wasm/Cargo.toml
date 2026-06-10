@@ -3,7 +3,7 @@ name = "temporalio-common-wasm"
 version = "0.4.0"
 edition = "2024"
 authors = ["Temporal Technologies Inc. <sdk@temporal.io>"]
-license-file = { workspace = true }
+license-file = "LICENSE.txt"
 description = "WASM-safe shared functionality for the Temporal Rust workflow surface"
 homepage = "https://temporal.io/"
 repository = "https://github.com/temporalio/sdk-core"
@@ -19,16 +19,16 @@ grpc-clients = ["temporalio-protos/grpc-clients"]
 [dependencies]
 anyhow = "1.0"
 async-trait = "0.1"
-bon = { workspace = true }
+bon = {version = "3", default-features = false, features = ["alloc", "implied-bounds"]}
 crc32fast = "1"
-derive_more = { workspace = true }
+derive_more = {version = "2.0", default-features = false, features = ["constructor", "display", "from", "into", "debug", "try_into"]}
 erased-serde = "0.4"
 futures = { version = "0.3", default-features = false, features = ["alloc"] }
 parking_lot = { version = "0.12" }
-prost = { workspace = true }
+prost = {version = "0.14"}
 serde = { version = "1.0", features = ["derive"] }
-serde_json = { workspace = true }
-thiserror = { workspace = true }
+serde_json = {version = "1.0"}
+thiserror = {version = "2"}
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", default-features = false, features = [
   "parking_lot",
@@ -41,9 +41,6 @@ url = "2.5"
 [dependencies.temporalio-protos]
 path = "../protos"
 version = "0.4"
-
-[lints]
-workspace = true
 
 [dev-dependencies]
 futures-util = { version = "0.3", default-features = false }

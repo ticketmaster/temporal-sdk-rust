@@ -3,7 +3,7 @@ name = "temporalio-sdk-core"
 version = "0.4.0"
 authors = ["Temporal Technologies Inc. <sdk@temporal.io>"]
 edition = "2024"
-license-file = { workspace = true }
+license-file = "LICENSE.txt"
 description = "Library for building new Temporal SDKs"
 homepage = "https://temporal.io/"
 repository = "https://github.com/temporalio/sdk-rust"
@@ -44,10 +44,10 @@ assert_matches = { version = "1.5", optional = true }
 backoff = "0.4"
 bimap = { version = "0.6.3", optional = true }
 async-trait = "0.1"
-bon = { workspace = true }
+bon = {version = "3", default-features = false, features = ["alloc", "implied-bounds"]}
 crossbeam-channel = "0.5"
 crossbeam-utils = "0.8"
-derive_more = { workspace = true }
+derive_more = {version = "2.0", default-features = false, features = ["constructor", "display", "from", "into", "debug", "try_into"]}
 enum_dispatch = "0.3"
 enum-iterator = "2"
 flate2 = { version = "1.1", optional = true }
@@ -58,7 +58,7 @@ hyper = { version = "1.7", optional = true }
 itertools = "0.14"
 lru = "0.18"
 mockall = "0.14"
-opentelemetry = { workspace = true, features = ["metrics"], optional = true }
+opentelemetry = {version = "0.31", default-features = false, features = ["metrics"], optional = true}
 opentelemetry_sdk = { version = "0.31", default-features = false, features = [
   "rt-tokio",
   "metrics",
@@ -76,8 +76,8 @@ opentelemetry-otlp = { version = "0.31", default-features = false, features = [
 parking_lot = { version = "0.12" }
 pid = "4.0"
 pin-project = "1.1"
-prost = { workspace = true }
-prost-types = { workspace = true }
+prost = {version = "0.14"}
+prost-types = {version = "0.7", package = "prost-wkt-types"}
 rand = "0.10"
 reqwest = { version = "0.13", features = [
   "json",
@@ -86,12 +86,12 @@ reqwest = { version = "0.13", features = [
   "rustls",
 ], default-features = false, optional = true }
 serde = "1.0"
-serde_json = { workspace = true }
+serde_json = {version = "1.0"}
 siphasher = "1.0"
 slotmap = "1.0"
 sysinfo = { version = "0.38", default-features = false, features = ["system"] }
 tar = { version = "0.4", optional = true }
-thiserror = { workspace = true }
+thiserror = {version = "2"}
 tokio = { version = "1.47", default-features = false, features = [
   "rt",
   "rt-multi-thread",
@@ -103,11 +103,7 @@ tokio = { version = "1.47", default-features = false, features = [
 ] }
 tokio-util = { version = "0.7", features = ["io", "io-util"] }
 tokio-stream = { version = "0.1", default-features = false }
-tonic = { workspace = true, default-features = false, features = [
-  "tls-native-roots",
-  "transport",
-  "codegen",
-] }
+tonic = {version = "0.14", default-features = false, features = ["tls-native-roots", "transport", "codegen"]}
 tracing = "0.1"
 url = "2.5"
 uuid = { version = "1.18", default-features = false, features = ["v4"] }
@@ -167,7 +163,7 @@ tokio = { version = "1.47", default-features = false, features = [
   "macros",
 ] }
 tokio-stream = { version = "0.1", default-features = false, features = ["net"] }
-tonic = { workspace = true, default-features = false, features = ["router"] }
+tonic = {version = "0.14", default-features = false, features = ["router"]}
 tracing-subscriber = { version = "0.3", default-features = false }
 trybuild = { version = "1.0", features = ["diff"] }
 
@@ -231,17 +227,6 @@ name = "fsm_procmacro"
 path = "tests/fsm_procmacro.rs"
 required-features = ["temporalio-common/serde_serialize"]
 
-[[bench]]
-name = "workflow_replay"
-path = "benches/workflow_replay_bench.rs"
-test = false
-harness = false
-required-features = ["test-utilities"]
-
-# The integration test runner should compile with the same configuration as the
-# rest of the integration tests so that artifacts are shared and no additional
-# compilation is required when switching between using the runner and running
-# tests directly.
 [[test]]
 name = "integ_runner"
 path = "tests/runner.rs"
@@ -254,5 +239,14 @@ required-features = [
 ]
 
 
-[lints]
-workspace = true
+[[bench]]
+name = "workflow_replay"
+path = "benches/workflow_replay_bench.rs"
+test = false
+harness = false
+required-features = ["test-utilities"]
+
+# The integration test runner should compile with the same configuration as the
+# rest of the integration tests so that artifacts are shared and no additional
+# compilation is required when switching between using the runner and running
+# tests directly.
